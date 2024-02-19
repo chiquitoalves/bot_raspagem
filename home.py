@@ -1,18 +1,15 @@
-import tkinter as tk
-from tkinter import scrolledtext, Label
-from tkinter.font import Font
 import subprocess
 import os
 import threading
-import schedule
 import time
-import psutil  
+import psutil
+import schedule
+
 
 bot_process = None
 
 def update_terminal(output):
-    terminal.insert(tk.END, output + '\n')
-    terminal.see(tk.END)
+    print(output)
 
 def execute_subprocess(command, update_func, is_bot=True):
     def run_process():
@@ -67,17 +64,6 @@ def restart_bot():
 def schedule_bot_restart():
     threading.Thread(target=restart_bot).start()
 
-root = tk.Tk()
-root.title("SSSGAMES BOT v. 0.3")
-root.geometry("800x550")
-root.configure(bg="#000000")
-
-terminal = scrolledtext.ScrolledText(root, height=30, bg="#000000", fg="#00ff00")
-terminal.pack(padx=10, pady=10)
-label_font = Font(family="Helvetica", size=20, weight="bold")
-sssgames_label = Label(root, text="SSS GAMES", bg="#000000", fg="#00ff00", font=label_font)
-sssgames_label.pack(pady=(0, 10))
-
 update_terminal('-------------------- BEM VINDO AO SSS GAMES BOT --------------------')
 
 run_bot_file()  
@@ -94,4 +80,6 @@ def run_scheduler():
 
 threading.Thread(target=run_scheduler, daemon=True).start()
 
-root.mainloop()
+# Mantém o programa em execução indefinidamente
+while True:
+    time.sleep(1)
